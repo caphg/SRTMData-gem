@@ -18,8 +18,9 @@ Or install it yourself as:
 
 ## Usage
 
-  srtm = SRTM.new('/path/to/hgt/file/N46E016.hgt')
-  p srtm.get_elevation(16.223, 46.7421)
+    srtm = SRTM.new('/path/to/hgt/file/N46E016.hgt')
+
+    p srtm.get_elevation(16.223, 46.7421)
 
 ## Contributing
 
