@@ -1,6 +1,6 @@
 # SRTMGem
 
-TODO: Write a gem description
+Gem parses SRTM data and for given latitude/longitude returns the elevation for that point, or nearest interpolated. Fetching of SRTM data files will be supported soon.
 
 ## Installation
 
@@ -18,7 +18,8 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+  srtm = SRTM.new('/path/to/hgt/file/N46E016.hgt')
+  p srtm.get_elevation(16.223, 46.7421)
 
 ## Contributing
 
