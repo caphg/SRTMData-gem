@@ -1,10 +1,36 @@
 require "SRTMGem/version"
+require 'zip'
+require "open-uri"
 
   class SRTM
-    def initialize(input_file)
-      @input_file = File.open(input_file, 'rb')
+    def initialize(*args)
+      unless args.is_a?(Array)
+        if File.exist?(args)
+          @input_file = File.open(args, 'rb')
+        else
+          puts 'File does not exist!'
+        end
+      else
+        if args.length == 2
+          args = args.to_a
+          fetch_file(args[0], args[1])
+        else
+          puts 'Wrong number of parameters. You should input longitude and latitude, example: N44, E16, that will download the appropriate tile.'
+        end
+      end
     end
 
+
+    def fetch_file(longitude, latitude)
+      File.open('temp.tmp.zip', 'wb') do |fo|
+        fo.write open("http://dds.cr.usgs.gov/srtm/version2_1/SRTM3/Eurasia/#{longitude}#{latitude}.hgt.zip").read
+      end
+      Zip::File.open('temp.tmp.zip') do |zipfile|
+        zipfile.each do |file|
+          @input_file = file.get_input_stream.read
+        end
+      end
+    end
 
     def get_elevation(longitude, latitude)
       d_longitude = longitude
